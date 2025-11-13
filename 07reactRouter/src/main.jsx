@@ -1,11 +1,39 @@
-import { StrictMode } from 'react'
+import React from 'react'
+// import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import Layout from './Layout.jsx'
+import Home from './components/Home/Home.jsx'
+import About from './components/About/About.jsx'
+import Contact from './components/ContactUs/Contact.jsx'
+import User from './components/Users/User.jsx'
+
+import Github,{githubinfoLoader} from './components/Github/Github.jsx'
+
+
+
+import { RouterProvider ,createBrowserRouter } from 'react-router-dom'
+
+const router = createBrowserRouter([
+  {
+      path:"/",
+      element:<Layout/>  ,
+
+      children:[
+        { path:"/home",element:<Home/> },
+         { path:"/about",element:<About/> },
+         {path:"/contactus",element:<Contact/>}, 
+         {path:"User/:UserId",element:<User/>}  ,
+         { path:"/github",element:<Github/>, loader:githubinfoLoader }   
+      ]
+
+  }
+])
+
 
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-    <Header />
-  </StrictMode>,
+  <React.StrictMode>
+    <RouterProvider router={router}/>
+  </React.StrictMode>,
 )
